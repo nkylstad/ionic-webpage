@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { 
+  Component,
+  HostListener 
+} from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 @Component({
@@ -7,8 +10,28 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  keyValue: string;
+  backgroundColorClass: string;
 
+  @HostListener('document:keypress', ['$event'])
+  keypress(e: KeyboardEvent)
+  {
+    console.log('Key pressed! ' + e.key);
+    this.keyValue = e.key;
+    if (e.key == 'r'){
+      this.backgroundColorClass = 'red';
+    }
+    if (e.key == 'g'){
+      this.backgroundColorClass = 'green';
+    }
+    if (e.key == 'b'){
+      this.backgroundColorClass = 'blue';
+    }
+  }
+
+  constructor(public navCtrl: NavController) {
+    this.keyValue = 'Test123';
+    this.backgroundColorClass = "default";
   }
 
 }
